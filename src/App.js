@@ -1,9 +1,9 @@
 import React from 'react';
-
-import { NavBar } from './components';
 import { Route } from 'react-router-dom';
+
+import { NavBar } from './components/NavBar';
 import { LogPage, SearchPage } from './pages';
-import { Footer } from './components/Footer';
+import { Footer } from './components';
 
 const cards = [1, 2, 3, 4];
 
