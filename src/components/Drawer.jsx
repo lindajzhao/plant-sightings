@@ -1,6 +1,8 @@
 import React from 'react'
+
 import DrawerBase from '@material-ui/core/Drawer'
-import withStyles from '@material-ui/core/styles/withStyles'
+import { makeStyles } from '@material-ui/core/styles'
+// fix imports?
 import {
   List,
   ListItem,
@@ -11,7 +13,7 @@ import {
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
 
-const styles = theme => ({
+const useStyles = makeStyles({
   list: {
     width: 250,
   },
@@ -20,20 +22,16 @@ const styles = theme => ({
   },
 })
 
-class Drawer extends React.Component {
-  state = {
-    left: false,
-  }
+export const Drawer = ({ menuIsOpen, toggleDrawerHandler }) => {
+  const classes = useStyles()
 
-  render() {
-    const { classes } = this.props
-
-    const sideList = side => (
+  return (
+    <DrawerBase open={menuIsOpen} onClose={toggleDrawerHandler}>
       <div
         className={classes.list}
         role="presentation"
-        onClick={this.props.toggleDrawerHandler}
-        onKeyDown={this.props.toggleDrawerHandler}
+        onClick={toggleDrawerHandler}
+        onKeyDown={toggleDrawerHandler}
       >
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -57,17 +55,6 @@ class Drawer extends React.Component {
           ))}
         </List>
       </div>
-    )
-
-    return (
-      <DrawerBase
-        open={this.props.left}
-        onClose={this.props.toggleDrawerHandler}
-      >
-        {sideList('left')}
-      </DrawerBase>
-    )
-  }
+    </DrawerBase>
+  )
 }
-
-export default withStyles(styles)(Drawer)
