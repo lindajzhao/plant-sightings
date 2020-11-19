@@ -12,17 +12,13 @@ exports.getAllLogs = async () => {
   }
 }
 
-// Create a new book that will be added to the database
-exports.createBook = async (bookData) => {
-  // 1. Create a book instance
-  // const book = new Book(bookData)
-  // try {
-  //   // 2. Save book to database
-  //   const doc = await book.save()
-  //   // 3. return with created book
-  //   return doc
-  // } catch (e) {
-  //   // 4. If error, throw and controller will catch
-  //   throw e
-  // }
+exports.createLog = async (newLog) => {
+  const log = new Log(newLog)
+
+  try {
+    const doc = await log.save()
+    return doc
+  } catch (e) {
+    throw e
+  }
 }
