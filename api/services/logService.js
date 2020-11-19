@@ -22,3 +22,13 @@ exports.createLog = async (newLog) => {
     throw e
   }
 }
+
+exports.deleteLog = async (logId) => {
+  try {
+    const doc = await Log.deleteOne({ _id: logId })
+
+    return doc
+  } catch (e) {
+    throw e
+  }
+}
