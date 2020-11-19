@@ -7,7 +7,8 @@ const express = require('express')
 const app = express()
 
 // 2. Require routes
-const { router: bookRoutes } = require('./routes/books/bookRoutes')
+const logRoutes = require('./routes/logRoutes')
+const logsRoutes = require('./routes/logsRoutes')
 
 // 3. Require conatants
 const { URL, PORT } = require('./utils/constants')
@@ -17,7 +18,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // 5. Utilise routes
-app.use('/api/books', bookRoutes)
+app.use('/api/log', logRoutes)
+app.use('/api/logs', logsRoutes)
 
 // 6. Define configuration for mongodb
 const MONGO_CONFIG = {
@@ -29,7 +31,8 @@ const MONGO_CONFIG = {
 mongoose
   .connect(URL, MONGO_CONFIG)
   .then(async () => {
-    console.log(`Connected to database at ${URL}`)
+    console.log(`Connected to MongoDB at ${URL}`)
+
     app.listen(PORT, () => {
       console.log(`Server is running on PORT: ${PORT}`)
     })
