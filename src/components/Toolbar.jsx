@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { fade, makeStyles, withStyles } from '@material-ui/core/styles'
+import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import ToolbarBase from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'

@@ -14,7 +14,7 @@ export default function App() {
       <Route path="/" exact>
         <LogPage cards={cards} />
       </Route>
-      <Route path="/add" exact>
+      <Route path="/search" exact>
         <SearchPage />
       </Route>
       <Footer />

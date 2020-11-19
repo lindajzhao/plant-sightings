@@ -26,7 +26,6 @@ export const LogPage = ({ cards = [] }) => {
 
   return (
     <main>
-      <div>Log Page Component</div> {/* Hero unit */}
       <div className={classes.heroContent}>
         <Container maxWidth="sm">
           <Typography
