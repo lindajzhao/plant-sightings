@@ -12,7 +12,7 @@ const logSchema = exports.schema = new Schema({
   commonName: String,
   location: String,
   note: String,
-  photos: [File]
+  photos: [String]
 })
 
-exports.model = mongoose.model('Log', logSchema)
+module.exports = mongoose.model('Log', logSchema)

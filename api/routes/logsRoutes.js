@@ -1,24 +1,21 @@
-
 'use strict'
 
 const express = require('express')
 const router = express.Router()
+const logService = require('../services/logService')
 
 // GET /logs
 router.get('/', async (req, res, next) => {
-  // try {
-  //   // 1. Fetch all books from database
-  //   const books = await bookService.listBooks()
-  //   // 2. Respond with list of books
-  //   res.status(200).send({
-  //     data: books
-  //   })
-  // } catch (e) {
-  //   // 3. If error, send to the error handler
-  //   next(e)
-  // }
-  console.log(req, res)
-  res.json({ message: 'ok'})
+  try {
+    const logs = await logService.getAllLogs()
+
+    res.status(200).send({
+      data: logs
+    })
+  } catch (e) {
+    // error thrown in service
+    next(e)
+  }
 })
 
 module.exports = router
