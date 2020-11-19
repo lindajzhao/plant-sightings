@@ -37,4 +37,18 @@ router.delete('/:logId', async (req, res, next) => {
   }
 })
 
+// Update '/log/:logId'
+router.patch('/:logId', async (req, res, next) => {
+  const { logId } = req.params
+  const { fields } = req.body
+
+  try {
+    const updatedLog = await logService.updateExistingLog(logId, fields)
+    
+    res.json(updatedLog)
+  } catch (e) {
+    next(e)
+  }
+})
+
 module.exports = router

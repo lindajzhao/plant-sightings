@@ -32,3 +32,23 @@ exports.deleteLog = async (logId) => {
     throw e
   }
 }
+
+exports.updateExistingLog = async (logId, newAttrs) => {
+  try {
+    let log = await Log.findById(logId)
+
+    if(!log) {
+      return res.status(404).json({message: 'id not found'})
+    }
+
+    for (let key in newAttrs) {
+       log[key] = newAttrs[key];
+    }
+
+    const updatedDoc = await log.save()
+
+    return updatedDoc
+  } catch (e) {
+    throw e
+  }
+}
