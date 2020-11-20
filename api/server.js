@@ -9,6 +9,8 @@ const app = express()
 // 2. Require routes
 const logRoutes = require('./routes/logRoutes')
 const logsRoutes = require('./routes/logsRoutes')
+const plantsRoutes = require('./routes/plantsRoutes')
+const plantRoutes = require('./routes/plantRoutes')
 
 // 3. Require conatants
 const { URL, PORT } = require('./utils/constants')
@@ -20,6 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 // 5. Utilise routes
 app.use('/api/log', logRoutes)
 app.use('/api/logs', logsRoutes)
+app.use('/api/plants', plantsRoutes)
+app.use('/api/plant', plantRoutes)
 
 // 6. Define configuration for mongodb
 const MONGO_CONFIG = {
