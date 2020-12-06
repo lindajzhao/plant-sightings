@@ -11,6 +11,7 @@ const logRoutes = require('./routes/logRoutes')
 const logsRoutes = require('./routes/logsRoutes')
 const plantsRoutes = require('./routes/plantsRoutes')
 const plantRoutes = require('./routes/plantRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 // 3. Require conatants
 const { URL, PORT } = require('./utils/constants')
@@ -24,6 +25,7 @@ app.use('/api/log', logRoutes)
 app.use('/api/logs', logsRoutes)
 app.use('/api/plants', plantsRoutes)
 app.use('/api/plant', plantRoutes)
+app.use('/api/auth', userRoutes)
 
 // 6. Define configuration for mongodb
 const MONGO_CONFIG = {

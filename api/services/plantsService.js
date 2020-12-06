@@ -11,7 +11,7 @@ exports.getTreflePlantsByQuery = async (query) => {
       method: 'GET'
     })
     const { data } = await results.json()
-console.log('getting url', `https://trefle.io/api/v1/plants/search?token=${TREFLE_TOKEN}&q=${query}`)
+
     const transformedData = data.map(plant => transformTrefleObjToResponse(plant))
 
     return transformedData

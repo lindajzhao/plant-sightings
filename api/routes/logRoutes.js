@@ -5,7 +5,7 @@ const router = express.Router()
 const logService = require('../services/logService')
 
 // POST '/log'
-router.post('/', async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   console.log('req data', req.body)
 
   try {
