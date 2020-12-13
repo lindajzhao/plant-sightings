@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import { NavBar } from './components/NavBar';
 import { LogPage, SearchPage } from './pages';
-import { Footer } from './components';
+import { Footer, SignUp, NavBar } from './components';
 
 const cards = [1, 2, 3, 4];
 
@@ -16,6 +15,9 @@ export default function App() {
       </Route>
       <Route path="/search" exact>
         <SearchPage />
+      </Route>
+      <Route path="/signup" exact>
+        <SignUp />
       </Route>
       <Footer />
     </>

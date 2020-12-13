@@ -1,7 +1,5 @@
 const express = require('express');
-const { createUser, findUserByEmail, findUserByID } = require('./userController');
-const { createToken } = require('../../tokens/tokenService');
-const { verifyToken } = require('../../middleware/verifyToken');
+const { createUser, findUserByEmail, findUserByID } = require('../services/userController');
 
 const router = express.Router();
 
@@ -56,43 +54,9 @@ router.route('/login')
       res.status(400).json({ message: 'password must be provided' });
       return;
     }
-    
-    try {
-      // does the user exist?
-      const user = await findUserByEmail(email);
-      if (!user) {
-        res.status(400).json({ message: 'password and email do not match'});
-        return;
-      }
 
-      // do the password match?
-      const isMatch = await user.comparePasswords(password);
-      if (!isMatch) {
-        res.status(400).json({ message: 'password and email do not match'});
-        return;
-      }
-
-      const token = createToken({ id: user._id });
-      res.cookie('token', token);
-      res.status(200).json({});
-    } catch (ex) {
-      console.log(ex);
-      res.status(500).json({ message: 'internal server error' });
-    }
-  });
-
-
-  router
-    .use(verifyToken)
-    .route('/me')
-    .get(async (req, res) => {
-      try {
-        const user = await findUserByID(req.user.id);
-        res.json({ data: user });
-      } catch(err) {
-        console.log(err);
-        res.status(500).json({ message: 'internal server error' });
-      }
+    // mocked login not connect to a DB. Always return a 200
+    res.json({ message: 'ok'});
   });
 
 module.exports = router;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import ToolbarBase from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
+import TextField from '@material-ui/core/TextField'
 import Badge from '@material-ui/core/Badge'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
@@ -81,6 +82,30 @@ export const Toolbar = ({ openDrawerHandler }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
+  const [user, setUser] = useState(undefined)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const getUser = useCallback(async function () {
+    try {
+      const response = await fetch('/api/auth/me')
+      const json = await response.json()
+      if (!response.ok) {
+        throw new Error(json.data.message)
+      }
+
+      setUser(json.data)
+    } catch (err) {
+      console.log('error?')
+      setUser(null)
+      console.log({ err })
+    }
+  }, [])
+
+  useEffect(() => {
+    getUser()
+  }, [getUser])
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget)
@@ -99,24 +124,31 @@ export const Toolbar = ({ openDrawerHandler }) => {
     setMobileMoreAnchorEl(event.currentTarget)
   }
 
+  const handleSubmit = async e => {
+    try {
+      e.preventDefault()
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.message)
+      }
+
+      getUser()
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const menuId = 'primary-search-account-menu'
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  )
 
   const mobileMenuId = 'primary-search-account-menu-mobile'
   const renderMobileMenu = (
@@ -225,7 +257,51 @@ export const Toolbar = ({ openDrawerHandler }) => {
         </ToolbarBase>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+        {!!user}
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={e => {
+              setEmail(e.target.value)
+            }}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={e => {
+              setPassword(e.target.value)
+            }}
+          />
+        </form>
+
+        {error}
+      </Menu>
     </div>
   )
 }
