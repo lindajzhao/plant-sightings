@@ -4,8 +4,11 @@ const express = require('express')
 const router = express.Router()
 const logService = require('../services/logService')
 
+// I haven't added any logic for associating logs to a specific user yet
+
+
 // POST '/log'
-router.post('/:userId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   console.log('req data', req.body)
 
   try {

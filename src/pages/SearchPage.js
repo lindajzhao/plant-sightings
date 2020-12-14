@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
 import { useLocation } from 'react-router-dom'
+import { SearchResultCard} from '../components'
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -53,69 +55,97 @@ const useStyles = makeStyles(theme => ({
     },
     fontSize: 26,
   },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
 }))
 
 export const SearchPage = () => {
-  const location = useLocation()
   const classes = useStyles()
-  const [query, setQuery] = useState('pineapple')
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState([])
 
-  console.log('loc', location)
-  useEffect(() => {
-    const getTrefleByQuery = async (query) => {
-      console.log('get', query)
-      try{
-        const results = await fetch(`http://localhost:3000/api/plants?q=${query}`)
-        const data = await results.json()
+  const handleSearch = async (evt) => {
+    evt.preventDefault()
+    
+    try{
+      const results = await fetch(`http://localhost:3000/api/plants?q=${query}`)
+      const data = await results.json()
 
-        console.log(data)
+      console.log(data)
+      setResults(data)
     }
-      catch(err) {
-        console.log(err)
-      }
+    catch(err) {
+      console.log(err)
     }
-    console.log('eff')
-    getTrefleByQuery(query)
-  }, [query])
+  }
 
   return (
-    <div className={classes.heroContent}>
-      <Container maxWidth="sm">
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          color="textPrimary"
-          gutterBottom
-        >
-          Add Plants
-        </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="textSecondary"
-          paragraph
-        >
-          Plants from Trefle.
-        </Typography>
-          <Grid container spacing={2} justify="center">
-            <Grid item className={classes.heroSearch}>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </div>
+    <>
+      <div className={classes.heroContent}>
+        <Container maxWidth="sm">
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+          >
+            Add Plants
+          </Typography>
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            paragraph
+          >
+            Plants from Trefle.
+          </Typography>
+            <Grid container spacing={2} justify="center">
+              <form>
+                <Grid item className={classes.heroSearch}>
+                  <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                      <SearchIcon />
+                    </div>
+                    <InputBase
+                      placeholder="Search…"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                      }}
+                      inputProps={{ 'aria-label': 'search' }}
+                      onChange={(evt) => {setQuery(evt.target.value)}}
+                      onSubmit={(evt) => {handleSearch(evt.target.value)}}
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleSearch}
+                  >
+                    Search
+                  </Button>
+                </Grid>
+              </form>
             </Grid>
-          </Grid>
+        </Container>
+        <Container className={classes.cardGrid} maxWidth="md">
+          { results.length ?  (
+            <Grid container spacing={4}>{
+              results.map((result, i) => (
+                <Grid item key={`${result.trefleId}-${i}`} xs={12} sm={6} md={4}>
+                  <SearchResultCard plant={result} />
+                </Grid>
+              ))}
+            </Grid>
+          ): null}
       </Container>
-    </div>
+      </div>
+
+    </>
   )
 }

@@ -11,7 +11,7 @@ exports.getTreflePlantsByQuery = async (query) => {
       method: 'GET'
     })
     const { data } = await results.json()
-
+    console.log('data from trefle', data)
     const transformedData = data.map(plant => transformTrefleObjToResponse(plant))
 
     return transformedData
