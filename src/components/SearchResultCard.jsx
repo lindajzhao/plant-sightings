@@ -31,7 +31,6 @@ const useStyles = makeStyles(theme => ({
 const placeholderImageSrc = 'https://source.unsplash.com/tFRvUBh_ET8/500x500'
 
 export const SearchResultCard = ({ plant }) => {
-  console.log('PLANT', plant)
   const {
     trefleId,
     commonName,
@@ -54,13 +53,14 @@ export const SearchResultCard = ({ plant }) => {
         commonName,
         scientificName,
         trefleImageUrl: trefleImageUrl,
-        // location, note, photos will go here eventually. Need to add frontend form to add them.
+        family,
+        genus,
+        photos: trefleImageUrl,
+        // eventually adding a front-end component to add notes, photos
       }),
     })
 
     const json = await response.json()
-    console.log(json)
-
     // add error handling
   }
 

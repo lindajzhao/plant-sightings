@@ -33,7 +33,14 @@ const useStyles = makeStyles(theme => ({
 const placeholderImageSrc = 'https://source.unsplash.com/tFRvUBh_ET8/500x500'
 
 export const LogCard = ({ plant }) => {
-  const { commonName, createdDate, genus, family, scientificName } = plant
+  const {
+    commonName,
+    createdDate,
+    genus,
+    family,
+    scientificName,
+    photos,
+  } = plant
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
 
@@ -56,8 +63,8 @@ export const LogCard = ({ plant }) => {
       />
       <CardMedia
         className={classes.cardMedia}
-        image={placeholderImageSrc}
-        title="Image title"
+        image={photos || placeholderImageSrc}
+        title={commonName ? commonName : scientificName}
       />
       <CardContent className={classes.cardContent}>
         <Typography variant="subtitle2">
@@ -81,6 +88,7 @@ export const LogCard = ({ plant }) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>More Info:</Typography>
+          {/* Notes and things will go here */}
         </CardContent>
       </Collapse>
     </Card>

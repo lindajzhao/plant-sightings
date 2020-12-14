@@ -19,9 +19,11 @@ const logSchema = exports.schema = new Schema({
   },
   commonName: String,
   scientificName: String,
+  family: String,
+  genus: String,
   location: String,
   note: String,
-  photos: [String],
+  photos: String,
 })
 
 module.exports = mongoose.model('Log', logSchema)

@@ -71,7 +71,7 @@ export const SearchPage = () => {
     evt.preventDefault()
     
     try{
-      const results = await fetch(`http://localhost:3000/api/plants?q=${query}`)
+      const results = await fetch(`/api/plants?q=${query}`)
       const data = await results.json()
 
       setResults(data)
