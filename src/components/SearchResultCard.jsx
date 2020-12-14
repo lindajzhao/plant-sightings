@@ -60,7 +60,7 @@ export const SearchResultCard = ({ plant }) => {
       }),
     })
 
-    const json = await response.json()
+    // const json = await response.json()
     // add error handling
   }
 
