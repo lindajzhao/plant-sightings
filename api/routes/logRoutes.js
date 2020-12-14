@@ -9,7 +9,7 @@ const logService = require('../services/logService')
 
 // POST '/log'
 router.post('/', async (req, res, next) => {
-  console.log('req data', req.body)
+  console.log('DABODY', req.body)
 
   try {
     const newLogInDb = await logService.createLog(req.body)

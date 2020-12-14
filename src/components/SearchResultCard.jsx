@@ -43,16 +43,19 @@ export const SearchResultCard = ({ plant }) => {
   const classes = useStyles()
 
   const handleAdd = async () => {
-    const response = await fetch('http://localhost:3000/api/log', {
+    const response = await fetch('/api/log', {
       method: 'POST',
-      body: {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         trefleId,
         createdDate: Date.now(),
         commonName,
         scientificName,
         trefleImageUrl: trefleImageUrl,
         // location, note, photos will go here eventually
-      },
+      }),
     })
 
     const json = await response.json()
