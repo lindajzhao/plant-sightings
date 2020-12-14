@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState } from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import ToolbarBase from '@material-ui/core/Toolbar'
@@ -15,6 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import MailIcon from '@material-ui/icons/Mail'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import MoreIcon from '@material-ui/icons/MoreVert'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -82,30 +83,34 @@ export const Toolbar = ({ openDrawerHandler }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
-  const [user, setUser] = useState(undefined)
+  const [isLoggedIn, setIsLoggedIn] = useState(undefined)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const getUser = useCallback(async function () {
+  const handleLogin = async e => {
     try {
-      const response = await fetch('/api/auth/me')
-      const json = await response.json()
-      if (!response.ok) {
-        throw new Error(json.data.message)
+      e.preventDefault()
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+      const data = await response.json()
+
+      if (data.message !== 'ok') {
+        setIsLoggedIn(false)
+        throw new Error(data.message)
       }
 
-      setUser(json.data)
+      setIsLoggedIn(true)
     } catch (err) {
-      console.log('error?')
-      setUser(null)
-      console.log({ err })
+      setError(err.message)
+      setIsLoggedIn(false)
     }
-  }, [])
-
-  useEffect(() => {
-    getUser()
-  }, [getUser])
+  }
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget)
@@ -122,27 +127,6 @@ export const Toolbar = ({ openDrawerHandler }) => {
 
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget)
-  }
-
-  const handleSubmit = async e => {
-    try {
-      e.preventDefault()
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.message)
-      }
-
-      getUser()
-    } catch (err) {
-      setError(err.message)
-    }
   }
 
   const isMenuOpen = Boolean(anchorEl)
@@ -222,16 +206,6 @@ export const Toolbar = ({ openDrawerHandler }) => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -266,41 +240,54 @@ export const Toolbar = ({ openDrawerHandler }) => {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        {!!user}
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={e => {
-              setEmail(e.target.value)
-            }}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={e => {
-              setPassword(e.target.value)
-            }}
-          />
-        </form>
+        {isLoggedIn ? (
+          <Typography>Logged in as: {email}</Typography>
+        ) : (
+          <div>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={e => {
+                  setEmail(e.target.value)
+                }}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={e => {
+                  setPassword(e.target.value)
+                }}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={handleLogin}
+              >
+                Login
+              </Button>
+            </form>
 
-        {error}
+            {error}
+          </div>
+        )}
       </Menu>
     </div>
   )

@@ -6,11 +6,8 @@ const logService = require('../services/logService')
 
 // I haven't added any logic for associating logs to a specific user yet
 
-
 // POST '/log'
 router.post('/', async (req, res, next) => {
-  console.log('DABODY', req.body)
-
   try {
     const newLogInDb = await logService.createLog(req.body)
 

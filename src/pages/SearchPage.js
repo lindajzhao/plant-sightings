@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
@@ -7,7 +7,6 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-import { useLocation } from 'react-router-dom'
 import { SearchResultCard} from '../components'
 
 const useStyles = makeStyles(theme => ({
@@ -73,7 +72,6 @@ export const SearchPage = () => {
       const results = await fetch(`http://localhost:3000/api/plants?q=${query}`)
       const data = await results.json()
 
-      console.log(data)
       setResults(data)
     }
     catch(err) {
@@ -124,7 +122,6 @@ export const SearchPage = () => {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    className={classes.submit}
                     onClick={handleSearch}
                   >
                     Search

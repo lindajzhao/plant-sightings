@@ -54,7 +54,7 @@ export const SearchResultCard = ({ plant }) => {
         commonName,
         scientificName,
         trefleImageUrl: trefleImageUrl,
-        // location, note, photos will go here eventually
+        // location, note, photos will go here eventually. Need to add frontend form to add them.
       }),
     })
 

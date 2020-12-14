@@ -55,7 +55,7 @@ router.route('/login')
       return;
     }
 
-    // mocked login not connect to a DB. Always return a 200
+    // mocked login. nNt connect to a DB, always return a 200
     res.json({ message: 'ok'});
   });
 
