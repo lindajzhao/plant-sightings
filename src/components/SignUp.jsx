@@ -75,9 +75,7 @@ export const SignUp = props => {
 
       props.getUser()
     } catch (err) {
-      console.log('error?')
       props.updateUser(undefined)
-      console.log({ err })
     }
   }
 

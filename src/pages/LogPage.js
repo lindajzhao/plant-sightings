@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography'
@@ -13,19 +13,41 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
+  heroContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
 }))
 
-export const LogPage = ({ cards = [] }) => {
+export const LogPage = () => {
   const classes = useStyles()
+  const [logs, setLogs] = useState([])
+
+  useEffect(() => {
+    const getUserLogs = async () => {
+      try {
+        const response = await fetch('/api/logs');
+        const json = await response.json()
+        console.log(json)
+        setLogs(json.data)
+      }
+      catch(err) {
+        console.log(err)
+      }
+    }
+
+    getUserLogs()
+  }, [setLogs])
 
   return (
     <main>
       <div className={classes.heroContent}>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" className={classes.heroContainer}>
           <Typography
             component="h1"
             variant="h2"
@@ -41,10 +63,10 @@ export const LogPage = ({ cards = [] }) => {
             color="textSecondary"
             paragraph
           >
-            Urban Foraging and Plant Identification Log
+            A logbook for plants found in the wild!
           </Typography>
           <Link to="/search">
-            <Button variant="contained" color="primary">	
+            <Button variant="contained" size="large" color="primary">	
               Add some plants!
             </Button>
           </Link>
@@ -52,9 +74,9 @@ export const LogPage = ({ cards = [] }) => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {cards.map(card => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
-              <LogCard />
+          {logs.map((plant, i) => (
+            <Grid item key={`${plant.trefleId}-${i}`} xs={12} sm={6} md={4}>
+              <LogCard plant={plant}/>
             </Grid>
           ))}
         </Grid>

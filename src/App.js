@@ -4,14 +4,12 @@ import { Route } from 'react-router-dom';
 import { LogPage, SearchPage } from './pages';
 import { Footer, SignUp, NavBar } from './components';
 
-const cards = [1, 2, 3, 4];
-
 export default function App() {
   return (
     <>
       <NavBar />
       <Route path="/" exact>
-        <LogPage cards={cards} />
+        <LogPage />
       </Route>
       <Route path="/search" exact>
         <SearchPage />

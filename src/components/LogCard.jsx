@@ -32,7 +32,8 @@ const useStyles = makeStyles(theme => ({
 
 const placeholderImageSrc = 'https://source.unsplash.com/tFRvUBh_ET8/500x500'
 
-export const LogCard = ({ name, date, location, note }) => {
+export const LogCard = ({ plant }) => {
+  const { commonName, createdDate, genus, family, scientificName } = plant
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
 
@@ -40,11 +41,18 @@ export const LogCard = ({ name, date, location, note }) => {
     setExpanded(!expanded)
   }
 
+  const date = new Date(parseInt(createdDate))
+  const dateOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
   return (
     <Card className={classes.card}>
       <CardHeader
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={commonName ? commonName : scientificName}
+        subheader={date.toLocaleDateString(undefined, dateOptions)}
       />
       <CardMedia
         className={classes.cardMedia}
@@ -52,13 +60,11 @@ export const LogCard = ({ name, date, location, note }) => {
         title="Image title"
       />
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant="subtitle2" component="h3">
-          Location
+        <Typography variant="subtitle2">
+          Scientific Name: {scientificName}
         </Typography>
-        <Typography>
-          This is a media card. You can use this section to describe the
-          content.
-        </Typography>
+        <Typography variant="subtitle2">Genus: {genus}</Typography>
+        <Typography variant="subtitle2">Family: {family}</Typography>
       </CardContent>
       <CardActions>
         <IconButton
