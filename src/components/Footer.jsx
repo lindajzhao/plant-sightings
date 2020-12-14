@@ -16,24 +16,22 @@ export const Footer = () => {
 
   return (
     <footer className={classes.footer}>
-      <Typography variant="h6" align="center" gutterBottom>
-        Footer
-      </Typography>
       <Typography
         variant="subtitle1"
         align="center"
         color="textSecondary"
         component="p"
       >
-        Something here to give the footer a purpose!
+        Made by Linda Zhao at Juno College
       </Typography>
       <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
+        Code hosted on:
+        <Link
+          color="inherit"
+          href="https://github.com/lindajzhao/plant-sightings"
+        >
+          Github
         </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
       </Typography>
     </footer>
   )

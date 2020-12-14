@@ -26,8 +26,6 @@ router.delete('/:logId', async (req, res, next) => {
   try {
     const deletedConfirmation = await logService.deleteLog(logId)
 
-    console.log('response after deletion', deletedConfirmation)
-
     res.json({
       logId,
       deletedConfirmation

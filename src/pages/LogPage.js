@@ -33,7 +33,7 @@ export const LogPage = () => {
       try {
         const response = await fetch('/api/logs');
         const json = await response.json()
-        console.log(json)
+
         setLogs(json.data)
       }
       catch(err) {

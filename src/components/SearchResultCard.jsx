@@ -64,10 +64,9 @@ export const SearchResultCard = ({ plant }) => {
     // add error handling
   }
 
-  // a lot of the images from trefle are broken links and not simply `null`. Is there a way to detect broken images and show placeholder instead?
+  // a lot of the images from trefle are broken links and not simply `null`. Need a way to handle it
   return (
     <Card className={classes.card}>
-      {console.log(commonName)}
       <CardHeader
         title={commonName ? commonName : scientificName}
         subheader={commonName ? null : scientificName}
