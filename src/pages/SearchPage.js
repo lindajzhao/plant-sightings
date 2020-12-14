@@ -7,16 +7,17 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-import { SearchResultCard} from '../components'
+import { SearchResultCard } from '../components'
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
-    backgroundColor: theme.palette.primary.light,
     padding: theme.spacing(8, 0, 6),
   },
   heroSearch: {
     marginTop: theme.spacing(4),
     width: '100%',
+    display: 'flex',
+    alignItems: 'center'
   },
   search: {
     position: 'relative',
@@ -28,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
+    backgroundColor: theme.palette.primary.light,
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
       width: 'auto',
@@ -98,7 +100,7 @@ export const SearchPage = () => {
             color="textSecondary"
             paragraph
           >
-            Plants from Trefle.
+            Search for plants to add a new log
           </Typography>
             <Grid container spacing={2} justify="center">
               <form>

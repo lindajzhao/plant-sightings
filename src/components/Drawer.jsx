@@ -1,17 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import DrawerBase from '@material-ui/core/Drawer'
 import { makeStyles } from '@material-ui/core/styles'
-// fix imports?
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-} from '@material-ui/core'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import SubjectIcon from '@material-ui/icons/Subject'
+import SearchIcon from '@material-ui/icons/Search'
 
 const useStyles = makeStyles({
   list: {
@@ -34,25 +28,23 @@ export const Drawer = ({ menuIsOpen, toggleDrawerHandler }) => {
         onKeyDown={toggleDrawerHandler}
       >
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/search">
+            <ListItem button key="Search Plants">
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <SearchIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Search Plants" />
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
+          </Link>
+
+          <Link to="/">
+            <ListItem button key="My Logs">
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <SubjectIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="My Logs" />
             </ListItem>
-          ))}
+          </Link>
         </List>
       </div>
     </DrawerBase>

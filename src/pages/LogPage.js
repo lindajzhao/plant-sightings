@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
 import { LogCard } from '../components'
 
 const useStyles = makeStyles(theme => ({
@@ -41,6 +43,11 @@ export const LogPage = ({ cards = [] }) => {
           >
             Urban Foraging and Plant Identification Log
           </Typography>
+          <Link to="/search">
+            <Button variant="contained" color="primary">	
+              Add some plants!
+            </Button>
+          </Link>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">

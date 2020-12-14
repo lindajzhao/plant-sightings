@@ -78,11 +78,8 @@ export const SearchResultCard = ({ plant }) => {
         title={commonName}
       />
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant="subtitle2" component="h3">
-          Location
-        </Typography>
-        <Typography>Genus: {genus}</Typography>
-        <Typography>Family: {family}</Typography>
+        <Typography variant="subtitle2">Genus: {genus}</Typography>
+        <Typography variant="subtitle2">Family: {family}</Typography>
       </CardContent>
       <CardActions>
         <IconButton onClick={handleAdd} aria-label="add plant log">

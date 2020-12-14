@@ -40,9 +40,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
+    maxWidth: '400px',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
-      width: 'auto',
     },
   },
   searchIcon: {
@@ -56,14 +56,12 @@ const useStyles = makeStyles(theme => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
-    },
   },
   sectionDesktop: {
     display: 'none',
@@ -189,14 +187,14 @@ export const Toolbar = ({ openDrawerHandler }) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Plant Sightings
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="this search bar doesn't do any thing"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
