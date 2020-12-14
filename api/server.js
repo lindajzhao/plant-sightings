@@ -46,3 +46,13 @@ mongoose
   .catch((err) => {
     console.error(err)
   })
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('./build'));
+  
+  // React Router
+  app.get('*', (req,res) =>{
+      console.log(path.join(__dirname+'/build/index.html'));
+      res.sendFile(path.join(__dirname+'/build/index.html'));
+  });
+}
