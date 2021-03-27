@@ -2,16 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: green[800],
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <CssBaseline />
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
