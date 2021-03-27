@@ -12,6 +12,8 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
+import placeholderImageSrc from '../assets/image-placeholder.png'
+
 const useStyles = makeStyles(theme => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -29,8 +31,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
 }))
-
-const placeholderImageSrc = 'https://source.unsplash.com/tFRvUBh_ET8/500x500'
 
 export const LogCard = ({ plant }) => {
   const {

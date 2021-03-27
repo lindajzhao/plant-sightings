@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import ToolbarBase from '@material-ui/core/Toolbar'
@@ -16,6 +17,7 @@ import MailIcon from '@material-ui/icons/Mail'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import MoreIcon from '@material-ui/icons/MoreVert'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -187,7 +189,7 @@ export const Toolbar = ({ openDrawerHandler }) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Plant Sightings
+            <Link to="/">Plant Sightings</Link>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -238,54 +240,56 @@ export const Toolbar = ({ openDrawerHandler }) => {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        {isLoggedIn ? (
-          <Typography>Logged in as: {email}</Typography>
-        ) : (
-          <div>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                value={email}
-                onChange={e => {
-                  setEmail(e.target.value)
-                }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={e => {
-                  setPassword(e.target.value)
-                }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                onClick={handleLogin}
-              >
-                Login
-              </Button>
-            </form>
+        <Box m={2}>
+          {isLoggedIn ? (
+            <Typography>Logged in as: {email}</Typography>
+          ) : (
+            <div>
+              <form className={classes.form} noValidate>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  onChange={e => {
+                    setEmail(e.target.value)
+                  }}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={e => {
+                    setPassword(e.target.value)
+                  }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleLogin}
+                >
+                  Login
+                </Button>
+              </form>
 
-            {error}
-          </div>
-        )}
+              {error}
+            </div>
+          )}
+        </Box>
       </Menu>
     </div>
   )

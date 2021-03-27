@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
+import placeholderImageSrc from '../assets/image-placeholder.png'
+
 const useStyles = makeStyles(theme => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -28,8 +30,6 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const placeholderImageSrc = 'https://source.unsplash.com/tFRvUBh_ET8/500x500'
-
 export const SearchResultCard = ({ plant }) => {
   const {
     trefleId,
@@ -42,26 +42,33 @@ export const SearchResultCard = ({ plant }) => {
   const classes = useStyles()
 
   const handleAdd = async () => {
-    const response = await fetch('/api/log', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        trefleId,
-        createdDate: Date.now(),
-        commonName,
-        scientificName,
-        trefleImageUrl: trefleImageUrl,
-        family,
-        genus,
-        photos: trefleImageUrl,
-        // eventually adding a front-end component to add notes, photos
-      }),
-    })
+    try {
+      const response = await fetch('/api/log', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          trefleId,
+          createdDate: Date.now(),
+          commonName,
+          scientificName,
+          trefleImageUrl: trefleImageUrl,
+          family,
+          genus,
+          photos: trefleImageUrl,
+          // eventually adding a front-end component to add notes, photos
+        }),
+      })
 
-    // const json = await response.json()
-    // add error handling
+      if (response.status !== 200) {
+        // add error handling
+        console.log('Oops, something went wrong!')
+      }
+    } catch (e) {
+      // add error handling
+      console.log('Oops, something went wrong!')
+    }
   }
 
   // a lot of the images from trefle are broken links and not simply `null`. Need a way to handle it
