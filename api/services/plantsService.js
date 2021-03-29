@@ -1,4 +1,4 @@
-'use strict'
+
 
 const fetch = require('node-fetch')
 const { TREFLE_TOKEN } = require('../utils/constants')
@@ -10,7 +10,7 @@ exports.getTreflePlantsByQuery = async (query) => {
       method: 'GET'
     })
     const { data } = await results.json()
-
+    console.log('tref', data)
     const transformedData = data.map(plant => transformTrefleObjToResponse(plant))
 
     return transformedData
@@ -20,16 +20,17 @@ exports.getTreflePlantsByQuery = async (query) => {
   }
 }
 
-exports.getTreflePlantById = async (trefleId) => {
-  try{
-    const results = await fetch(`https://trefle.io/api/v1/plants/${trefleId}?token=${TREFLE_TOKEN}`, {
-      method: 'GET'
-    })
-    const all = await results.json()
+exports.getTreflePlant = async ({id, slug}) => {
+  if (!id && !slug) {
+    throw new Error('Missing ID or Slug')
+  }
+  console.log('slogg', id, slug)
 
-    return all
-  }
-  catch(e) {
-    throw e
-  }
+  const endpoint = id ? `plants/${id}` : `species/${slug}`
+
+  const results = await fetch(`https://trefle.io/api/v1/${endpoint}?token=${TREFLE_TOKEN}`, {
+    method: 'GET'
+  })
+
+  return await results.json()
 }

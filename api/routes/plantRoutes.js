@@ -1,16 +1,12 @@
-'use strict'
-
 const express = require('express')
 const router = express.Router()
-const { getTreflePlantById } = require('../services/plantsService')
+const { getTreflePlant } = require('../services/plantsService')
 
 // GET '/plant' single plant by ID
-router.get('/:trefleId', async (req, res, next) => {
-  const { trefleId } = req.params;
-
+router.get('/', async (req, res, next) => {
   try {
-    const results = await getTreflePlantById(trefleId)
-    
+    const results = await getTreflePlant(req.body)
+
     res.json(results)
   }
   catch(e) {
