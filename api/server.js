@@ -51,6 +51,8 @@ if (process.env.NODE_ENV === 'production') {
   
   // React Router
   app.get('*', (req,res) =>{
-      res.sendFile(path.join(__dirname+'/build/index.html'));
+      console.log('join', path.join(__dirname+'/build/index.html'));
+
+      res.sendFile(path.join('./build/index.html'));
   });
 }
