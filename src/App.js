@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import { LogPage, SearchPage } from './pages';
+import { LogPage, SearchPage, PlantDetailsPage } from './pages';
 import { Footer, SignUp, NavBar } from './components';
 
 export default function App() {
@@ -16,6 +16,9 @@ export default function App() {
       </Route>
       <Route path="/signup" exact>
         <SignUp />
+      </Route>
+      <Route path="/pl/:slug" exact>
+        <PlantDetailsPage />
       </Route>
       <Footer />
     </>
