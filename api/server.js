@@ -1,7 +1,6 @@
-'use strict'
-
 const mongoose = require('mongoose')
 const express = require('express')
+const path = require('path')
 
 // 1. Create main express intance
 const app = express()
@@ -52,7 +51,6 @@ if (process.env.NODE_ENV === 'production') {
   
   // React Router
   app.get('*', (req,res) =>{
-      console.log(path.join(__dirname+'/build/index.html'));
       res.sendFile(path.join(__dirname+'/build/index.html'));
   });
 }
