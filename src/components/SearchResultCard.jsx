@@ -59,6 +59,7 @@ export const SearchResultCard = ({ plant }) => {
           family,
           genus,
           photos: trefleImageUrl,
+          slug,
           // eventually adding a front-end component to add notes, photos
         }),
       })

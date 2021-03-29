@@ -6,6 +6,9 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import InfoIcon from '@material-ui/icons/Info'
+import CardActions from '@material-ui/core/CardActions'
+import Button from '@material-ui/core/Button'
 
 import placeholderImageSrc from '../assets/image-placeholder.png'
 
@@ -35,6 +38,7 @@ export const LogCard = ({ plant }) => {
     family,
     scientificName,
     photos,
+    slug,
   } = plant
   const classes = useStyles()
 
@@ -63,6 +67,16 @@ export const LogCard = ({ plant }) => {
         <Typography variant="subtitle2">Genus: {genus}</Typography>
         <Typography variant="subtitle2">Family: {family}</Typography>
       </CardContent>
+      <CardActions>
+        <Button
+          variant="link"
+          color="default"
+          startIcon={<InfoIcon />}
+          href={`pl/${slug}`}
+        >
+          Details
+        </Button>
+      </CardActions>
     </Card>
   )
 }
