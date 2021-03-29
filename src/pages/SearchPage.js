@@ -120,6 +120,7 @@ export const SearchPage = () => {
                       inputProps={{ 'aria-label': 'search Trefle database' }}
                       onChange={(evt) => {setQuery(evt.target.value)}}
                       onSubmit={(evt) => {handleSearch(evt.target.value)}}
+                      value={query}
                     />
                   </div>
                   <Button

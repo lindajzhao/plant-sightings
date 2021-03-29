@@ -45,11 +45,7 @@ export const PlantDetailsPage = () => {
         const response = await fetch(`/api/plant/slug/${slug}`);
         const json = await response.json()
 
-        if(json.error) {
-          throw new Error(json.message)
-        }
-
-        setDetails(json.data)
+        setDetails(json)
       }
       catch(err) {
         console.log(err)
@@ -67,8 +63,8 @@ export const PlantDetailsPage = () => {
         createData('Scientific Name', details.scientific_name),
         createData('Vegetable', `${details.vegetable}`),
         createData('Edible', details.edible_part ? details.edible_part.join(", ") : `${details.edible}`),
-        createData('Distribution(Native)', details.distribution.native.join(", ")),
-        createData('Distribution(Introduced)', details.distribution.introduced.join(", "))
+        createData('Distribution(Native)', details.distribution?.native?.join(", ")),
+        createData('Distribution(Introduced)', details.distribution?.introduced?.join(", "))
       ])
     }
 
@@ -89,14 +85,15 @@ export const PlantDetailsPage = () => {
             >
               {details.common_name}
             </Typography>
-            <Typography
+           {details.common_names && details.common_names.en ? <Typography
               variant="p"
               align="center"
               color="textSecondary"
               paragraph
             >
-              Other common names: {details.common_names.en.join(', ')}
+              Other common names: {details.common_names?.en?.join(', ')}
             </Typography>
+            : null}
           </Container>
           <Container maxWidth="md">
             <TableContainer component={Paper}>

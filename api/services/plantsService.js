@@ -29,5 +29,7 @@ exports.getTreflePlant = async ({id, slug}) => {
     method: 'GET'
   })
 
-  return await results.json()
+  const { data } = await results.json()
+
+  return data;
 }
