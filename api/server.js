@@ -50,8 +50,6 @@ if (process.env.NODE_ENV === 'production') {
   
   // React Router
   app.get('*', (req,res) =>{
-      console.log('dirname', __dirname);
-
-      res.sendFile('../build/index.html', { root: __dirname });
+      res.sendFile('index.html', { root: './build' });
   });
 }
