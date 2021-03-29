@@ -1,4 +1,4 @@
-'use strict'
+
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
@@ -13,6 +13,10 @@ const logSchema = exports.schema = new Schema({
     required: true,
   },
   createdDate: {
+    type: String,
+    required: true,
+  },
+  slug: {
     type: String,
     required: true,
   },
