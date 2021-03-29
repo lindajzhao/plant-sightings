@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const express = require('express')
-const path = require('path')
 
 // 1. Create main express intance
 const app = express()
@@ -51,8 +50,8 @@ if (process.env.NODE_ENV === 'production') {
   
   // React Router
   app.get('*', (req,res) =>{
-      console.log('join', path.join(__dirname+'/build/index.html'));
+      console.log('dirname', __dirname);
 
-      res.sendFile(path.join('./build/index.html'));
+      res.sendFile('../build/index.html', { root: __dirname });
   });
 }
