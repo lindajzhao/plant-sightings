@@ -7,6 +7,8 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
+import Link from '@material-ui/core/Link'
+
 import { SearchResultCard } from '../components'
 
 const useStyles = makeStyles(theme => ({
@@ -45,13 +47,14 @@ const useStyles = makeStyles(theme => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: '100%'
   },
   inputInput: {
     padding: theme.spacing(2, 2 ,2, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
+    [theme.breakpoints.down('md')]: {
+      fontSize: 20,
     },
     fontSize: 26,
   },
@@ -99,8 +102,8 @@ export const SearchPage = () => {
             color="textSecondary"
             paragraph
           >
-            Search for plants to add a new log
-          </Typography>
+            Search the  <Link><a href="https://trefle.io/">Trefle API</a></Link>, an open botanical database.
+            </Typography>
             <Grid container spacing={2} justify="center">
               <form>
                 <Grid item className={classes.heroSearch}>
@@ -109,12 +112,12 @@ export const SearchPage = () => {
                       <SearchIcon />
                     </div>
                     <InputBase
-                      placeholder="Search…"
+                      placeholder="Common or scientific name"
                       classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                       }}
-                      inputProps={{ 'aria-label': 'search' }}
+                      inputProps={{ 'aria-label': 'search Trefle database' }}
                       onChange={(evt) => {setQuery(evt.target.value)}}
                       onSubmit={(evt) => {handleSearch(evt.target.value)}}
                     />
