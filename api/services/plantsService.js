@@ -1,5 +1,3 @@
-
-
 const fetch = require('node-fetch')
 const { TREFLE_TOKEN } = require('../utils/constants')
 const { transformTrefleObjToResponse } = require('../utils/trefleUtils')
@@ -10,7 +8,7 @@ exports.getTreflePlantsByQuery = async (query) => {
       method: 'GET'
     })
     const { data } = await results.json()
-    console.log('tref', data)
+
     const transformedData = data.map(plant => transformTrefleObjToResponse(plant))
 
     return transformedData
@@ -24,7 +22,6 @@ exports.getTreflePlant = async ({id, slug}) => {
   if (!id && !slug) {
     throw new Error('Missing ID or Slug')
   }
-  console.log('slogg', id, slug)
 
   const endpoint = id ? `plants/${id}` : `species/${slug}`
 
