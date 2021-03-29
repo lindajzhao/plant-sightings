@@ -28,21 +28,20 @@ export const Drawer = ({ menuIsOpen, toggleDrawerHandler }) => {
         onKeyDown={toggleDrawerHandler}
       >
         <List>
-          <Link to="/search">
-            <ListItem button key="Search Plants">
-              <ListItemIcon>
-                <SearchIcon />
-              </ListItemIcon>
-              <ListItemText primary="Search Plants" />
-            </ListItem>
-          </Link>
-
           <Link to="/">
             <ListItem button key="My Logs">
               <ListItemIcon>
                 <SubjectIcon />
               </ListItemIcon>
               <ListItemText primary="My Logs" />
+            </ListItem>
+          </Link>
+          <Link to="/search">
+            <ListItem button key="Search Plants">
+              <ListItemIcon>
+                <SearchIcon />
+              </ListItemIcon>
+              <ListItemText primary="Search Plants" />
             </ListItem>
           </Link>
         </List>
