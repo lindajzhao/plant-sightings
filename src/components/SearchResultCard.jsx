@@ -6,8 +6,9 @@ import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
 import AddIcon from '@material-ui/icons/Add'
-import IconButton from '@material-ui/core/IconButton'
+import InfoIcon from '@material-ui/icons/Info'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
 import placeholderImageSrc from '../assets/image-placeholder.png'
@@ -38,6 +39,7 @@ export const SearchResultCard = ({ plant }) => {
     trefleImageUrl,
     genus,
     family,
+    slug,
   } = plant
   const classes = useStyles()
 
@@ -88,9 +90,22 @@ export const SearchResultCard = ({ plant }) => {
         <Typography variant="subtitle2">Family: {family}</Typography>
       </CardContent>
       <CardActions>
-        <IconButton onClick={handleAdd} aria-label="add plant log">
-          <AddIcon />
-        </IconButton>
+        <Button
+          onClick={handleAdd}
+          aria-label="add plant log"
+          color="default"
+          startIcon={<AddIcon />}
+        >
+          Add
+        </Button>
+        <Button
+          variant="link"
+          color="default"
+          startIcon={<InfoIcon />}
+          href={`pl/${slug}`}
+        >
+          Details
+        </Button>
       </CardActions>
     </Card>
   )
